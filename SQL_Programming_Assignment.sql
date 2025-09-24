@@ -106,4 +106,56 @@ end //
 delimiter ;
 call display_product(103);
 
+-- q3
+drop procedure display_product;
+delimiter //
+create procedure display_product(in cus_id int)
+begin
+select customer_id, order_id, product_name from orders
+where cus_id = customer_id;
+end //
+delimiter ;
+call display_product(3);
+
+-- q5
+drop procedure display_student;
+delimiter //
+create procedure display_student(in stu_id int, out Nmarks int)
+begin
+declare grade char(1) default null;
+select marks into Nmarks from students where stu_id = student_id;
+if(Nmarks>80) then
+set grade = 'A';
+else
+set grade = 'C';
+end if;
+select student_name, student_id, grade as grading from students where 
+stu_id = student_id;
+end //
+delimiter ;
+call display_student(2, @Nmarks);
+
+select @Nmarks;
+
+select * from students;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
