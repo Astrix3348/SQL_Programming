@@ -40,11 +40,20 @@ create temporary table temp(id int, name varchar(255), s_stock int);
 
 open c1;
 read_product : loop
+
 fetch c1 into pid, p_name, stock;
+
    if done = 1 then 
    leave read_product;
    end if;
-   insert into temp values (pid, p_name, stock);
+   
+     if(stock > 50) then
+         set new_stock = stock * 20;
+      else
+        set new_stock = stock / 10;
+      end if;
+   
+      insert into temp values (pid, p_name, new_stock);
 end loop;
 close c1;
 select * from temp;
